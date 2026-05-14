@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&display=swap" rel="stylesheet">
+
+</head>
+  <body style="background-color: #F7F7F7;">
+        <div class="container" >
+            <div class="header" > 
+                <div class="text" style="width: 75vw;">
+                    <div>☻  Andrew Mutsenko <br>Senior product designer @ <a class="a" target="_blank" rel="noopener noreferrer" href="https://www.2gis.ru"> 2GIS</a><br>
+                    Live and work in St. Petersburg, <span id="spb-time">--:-- --</span></div>
+                </div> 
+                    
+                <div class="text" style="width: 25vw;"> 
+                  <div> ✦  <a class="a" target="_blank" rel="noopener noreferrer" href="http://t.me/andrewvjivii">Telegram</a><br>✦  <a class="a" target="_blank" rel="noopener noreferrer" href="https://www.2gis.ru">Linkdein</a><br>✦  <a class="a" target="_blank" rel="noopener noreferrer" href="https://www.2gis.ru">Are.na</a>
+                  </div>
+                  </div>
+
+                </div>
+
+                <div class="header">
+                  <div class="text" style="width: 75vw;">
+                      <div>✿  <a class="a" target="_blank" rel="noopener noreferrer" href="http://t.me/andrewvjivii">Selected Works 380.1 MB</a>  ↓</div>
+                  </div> 
+                      
+                  <div class="text"  style="width: 25vw;">
+                      <div>☁  <span id="spb-temp"> --</span>°C</div>
+                    </div>
+                    
+                  </div>
+
+
+        </div>
+    
+            <script>
+              (function spbTimeAMPM() {
+                const el = document.getElementById('spb-time');
+                if (!el) return;
+
+                const fmt = new Intl.DateTimeFormat('en-US', {
+                  timeZone: 'Europe/Moscow',
+                  hour: 'numeric',
+                  minute: '2-digit',
+                  hour12: true,
+                });
+
+                function tick() {
+                  el.textContent = fmt.format(new Date());
+                }
+
+                tick();
+                setInterval(tick, 1000);
+              })();
+            </script>
+
+            <script>
+              (function spbWeather() {
+                const el = document.getElementById('spb-temp');
+                if (!el) return;
+
+                const lat = 59.9386;
+                const lon = 30.3141;
+
+                async function load() {
+                  try {
+                    const url =
+                      'https://api.open-meteo.com/v1/forecast' +
+                      `?latitude=${lat}&longitude=${lon}` +
+                      '&current=temperature_2m' +
+                      '&temperature_unit=celsius' +
+                      '&timezone=Europe%2FMoscow';
+
+                    const res = await fetch(url);
+                    if (!res.ok) throw new Error('Weather fetch failed');
+                    const data = await res.json();
+
+                    const t = data?.current?.temperature_2m;
+                    if (typeof t === 'number') el.textContent = Math.round(t).toString();
+                  } catch {
+                    // keep placeholder if API unavailable
+                  }
+                }
+
+                load();
+                setInterval(load, 10 * 60 * 1000);
+              })();
+            </script>
+
+            
+
+        </div> 
+
+<style>
+
+    :root{
+      --site-font-size: 20px;
+      --site-line-height: 28px;
+      --link-hover: #3699e4;
+    
+    }
+
+    .a{
+      color: #333;
+      transition: color 160ms ease;
+      text-decoration-line: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;  
+      text-decoration-skip-ink: auto;
+      text-decoration-color: #333; 
+    }
+
+    .a:hover{
+      color: var(--link-hover);
+      text-decoration-color: currentColor; 
+    }
+
+    *, *::before, *::after{
+      box-sizing: border-box;
+    }
+
+    html, body{
+      height: 100%;
+      margin: 0;
+    }
+
+    .container {
+  
+        width: 100%;
+        height: 100%;
+        gap: 24px;
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+        flex-wrap: wrap;
+        padding: 24px;
+        justify-content: flex-end;
+    }
+
+    @keyframes slideUpFade{
+      from{
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to{
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .text{
+      animation: slideUpFade 900ms cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .header:nth-of-type(1) > .text:nth-child(1){ animation-delay: 300ms; }
+    .header:nth-of-type(1) > .text:nth-child(2){ animation-delay: 300ms; }
+    .header:nth-of-type(2) > .text:nth-child(1){ animation-delay: 350ms; }
+    .header:nth-of-type(2) > .text:nth-child(2){ animation-delay: 350ms; }
+
+    @media (prefers-reduced-motion: reduce){
+      .text{
+        animation: none;
+        transform: none;
+      }
+    }
+
+
+    .text{
+      font-family: "Hedvig Letters Serif", serif;
+      font-variant-numeric: proportional-nums;
+      display: flex;
+      color: #333;
+      flex-direction: column;
+      font-size: var(--site-font-size);
+      line-height: var(--site-line-height);
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-synthesis: none;
+    }
+
+    .header{
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 431px){
+      html, body{
+        overflow: hidden;
+      }
+    }
+
+    @media (max-width: 430px){
+      :root{
+        --site-font-size: 18px;
+        --site-line-height: 24px;
+        .container {
+                    padding: 16px;
+      }
+      }
+
+      html, body{
+        overflow: hidden;
+        overscroll-behavior: none;
+      }
+
+      .header{
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .header > .text{
+        width: 100vw !important;
+      }
+      
+
+      }
+
+
+
+     
+    
+    
+</style>
+  </body>
+</html>
