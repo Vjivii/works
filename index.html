@@ -3,16 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Portfolio</title>
+    <meta property="og:title" content="Andrew Mutsenko">
+    <meta name="description" content="Andrew Mutsenko is a Senior product designer from St. Petersburg">
+    <meta property="og:description" content="The personal website of Andrew Mutsenko">
+    <meta property="og:site_name" content="Andrew Mutsenko">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content href="me.jpg">
+
+
+    <title>Andrew Mutsenko</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&display=swap" rel="stylesheet">
 
     <style>
+      @font-face { font-family: 'Pecita'; src: url('fonts/Pecita.otf') }
+
     :root{
-      --site-font-size: 20px;
-      --site-line-height: 28px;
+      --site-font-size: 30px;
+      --site-line-height: 38px;
       --link-hover: #3699e4;
     }
 
@@ -34,6 +44,18 @@
     .a:hover{
       color: var(--link-hover);
       text-decoration-color: currentColor;
+    }
+
+    .heart{
+      cursor: pointer;
+      transition: color 160ms ease;
+      user-select: none;
+    }
+
+    .heart:hover,
+    .heart:focus-visible{
+      color: #FF0000;
+      outline: none;
     }
 
     *, *::before, *::after{
@@ -89,7 +111,7 @@
     }
 
     .text{
-      font-family: "Hedvig Letters Serif", serif;
+      font-family: "Pecita";
       font-variant-numeric: proportional-nums;
       display: flex;
       color: #333;
@@ -117,8 +139,8 @@
 
     @media (max-width: 430px){
       :root{
-        --site-font-size: 18px;
-        --site-line-height: 24px;
+        --site-font-size: 26px;
+        --site-line-height: 34px;
       }
 
       .container {
@@ -150,14 +172,14 @@
         </div>
 
         <div class="text" style="width: 25vw;">
-          <div> ✦  <a class="a" target="_blank" rel="noopener noreferrer" href="http://t.me/andrewvjivii">Telegram</a><br>✦  <a class="a" target="_blank" rel="noopener noreferrer" href="https://www.2gis.ru">Linkdein</a><br>✦  <a class="a" target="_blank" rel="noopener noreferrer" href="https://www.2gis.ru">Are.na</a>
+          <div> ✦  <a class="a" target="_blank" rel="noopener noreferrer" href="http://t.me/andrewvjivii">Telegram</a><br>✦  <a class="a" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/andrewmutsenko/">Linkdein</a><br>✦  <a class="a" target="_blank" rel="noopener noreferrer" href="https://www.are.na/andrew-vjivii/">Are.na</a>
           </div>
         </div>
       </div>
 
       <div class="header">
         <div class="text" style="width: 75vw;">
-          <div>✿<a class="mirror">ꫂ</a> — for you  </div>
+          <div><span class="heart" id="heart" role="button" tabindex="0" aria-label="A little compliment">♡</span> — <span id="heart-message">you look amazing</span></div>
         </div>
 
         <div class="text" style="width: 25vw;">
@@ -184,6 +206,47 @@
 
         tick();
         setInterval(tick, 1000);
+      })();
+    </script>
+
+    <script>
+      (function heartCompliments() {
+        const heart = document.getElementById('heart');
+        const message = document.getElementById('heart-message');
+        if (!heart || !message) return;
+
+        const compliments = [
+          'you look amazing',
+          'you look super',
+          'today is your day',
+          'warmth and love to you',
+          'thanks for stopping by',
+          'hope your day is gentle',
+          'you\'re doing great',
+          'sending good vibes',
+          'the world is brighter with you in it',
+          'take a breath — you\'ve got this',
+          'you\'re exactly enough',
+          'glad you\'re here',
+          'keep being wonderful',
+          'you deserve something nice today',
+          'someone is rooting for you',
+        ];
+
+        let index = 0;
+
+        function nextCompliment() {
+          index = (index + 1) % compliments.length;
+          message.textContent = compliments[index];
+        }
+
+        heart.addEventListener('click', nextCompliment);
+        heart.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            nextCompliment();
+          }
+        });
       })();
     </script>
 
